@@ -1,9 +1,9 @@
-
+/*
 jQuery(document).ready(function($)
 {
     var mediaUploader;
 
-    $('#upload-button').on('click',function(e)
+    jQuery('#upload-button').on('click',function(e)
     {
         e.preventDefault();
         if(mediaUploader){
@@ -14,18 +14,21 @@ jQuery(document).ready(function($)
         mediaUploader = wp.media.frames.file_frame = wp.media({
             title: 'Upload a Profile Picture',
             button: {
-              text: 'Choose Picture'
+                text: 'Choose Picture'
             },
             multiple: false
         });
 
         mediaUploader.on('select', function(){
             attachment = mediaUploader.state().get('selection').first().toJSON();
-            $('#profile-picture').val(attachment.url);
+            jQuery('#profile-picture').val(attachment.url);
+            jQuery('#profile-picture-preview').css('background-image','url(' + attachment.url + ')');
         });
 
         mediaUploader.open();
 
     });
-});
+});*/
+
+
 

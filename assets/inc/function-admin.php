@@ -61,7 +61,7 @@ function monoque_theme_settings_page()
 
 function monoque_custom_settings()
 {
-    register_setting( 'monoque-settings-group', 'profile_picture' );
+    //register_setting( 'monoque-settings-group', 'profile_picture' );
     register_setting( 'monoque-settings-group', 'first_name' );
     register_setting( 'monoque-settings-group', 'last_name' );
     register_setting( 'monoque-settings-group', 'user_description' );
@@ -79,7 +79,7 @@ function monoque_custom_settings()
 
     add_settings_section( 'monoque-sidebar-options', 'Sidebar Options', 'monoque_sidebar_options', 'sg_monoque' );
 
-    add_settings_field( 'sidebar-profile-picture', 'Profile Picture', 'monoque_sidebar_profile', 'sg_monoque', 'monoque-sidebar-options' );
+    //add_settings_field( 'sidebar-profile-picture', 'Profile Picture', 'monoque_sidebar_profile', 'sg_monoque', 'monoque-sidebar-options' );
     add_settings_field( 'sidebar-name', 'Full Name', 'monoque_sidebar_name', 'sg_monoque', 'monoque-sidebar-options' );
     add_settings_field( 'sidebar-description', 'Description', 'monoque_sidebar_description', 'sg_monoque', 'monoque-sidebar-options' );
     add_settings_field( 'sidebar-facebook', 'Facebook Handler', 'monoque_sidebar_facebook', 'sg_monoque', 'monoque-sidebar-options' );
@@ -97,12 +97,13 @@ function monoque_custom_settings()
 
 
 // General page functions
-function monoque_sidebar_profile()
+
+/*function monoque_sidebar_profile()
 {
     $picture = esc_attr(get_option( 'profile_picture' ));
-    echo '<input type="button" class="button button-secondary" value="Upload Profile Picture" id="upload-button">
+    echo '<input type="button" class="button button-secondary" value="Upload Profile Picture" id="upload-button" />
         <input type="hidden" id="profile-picture" name="profile_picture" value="'.$picture.'" />';
-}
+}*/
 
 function monoque_sidebar_name()
 {
