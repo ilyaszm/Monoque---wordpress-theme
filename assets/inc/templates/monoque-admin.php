@@ -1,5 +1,5 @@
 
-<h1>Monoque Theme Options</h1>
+<h1>Monoque Sidebar Options</h1>
 <?php settings_errors( ); ?>
 
 <?php

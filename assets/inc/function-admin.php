@@ -25,11 +25,20 @@ function monoque_add_admin_page()
     // Generate Monoque Admin Sub-Pages
     add_submenu_page(
         'sg_monoque',
-        'Monoque Theme Options',
-        'General',
+        'Monoque Sidebar Options',
+        'Sidebar',
         'manage_options',
         'sg_monoque',
         'monoque_theme_create_page'
+    );
+
+    add_submenu_page(
+        'sg_monoque',
+        'Monoque Theme Options',
+        'Theme Options',
+        'manage_options',
+        'sg_monoque_theme',
+        'monoque_theme_support_page'
     );
 
     add_submenu_page(
@@ -40,12 +49,12 @@ function monoque_add_admin_page()
         'sg_monoque_css',
         'monoque_theme_settings_page'
     );
-
-    // Activate custom settings
-    add_action( 'admin_init', 'monoque_custom_settings' );
 }
 
 add_action( 'admin_menu', 'monoque_add_admin_page' );
+
+// Activate custom settings
+add_action( 'admin_init', 'monoque_custom_settings' );
 
 // General page
 function monoque_theme_create_page()
@@ -59,8 +68,15 @@ function monoque_theme_settings_page()
     echo '<h1>Monoque Custom CSS</h1>';
 }
 
+// Template submenu functions
+function monoque_theme_support_page()
+{
+    require_once get_template_directory().'/assets/inc/templates/monoque-theme-support.php';
+}
+
 function monoque_custom_settings()
 {
+    // Sidebar options
     //register_setting( 'monoque-settings-group', 'profile_picture' );
     register_setting( 'monoque-settings-group', 'first_name' );
     register_setting( 'monoque-settings-group', 'last_name' );
@@ -93,11 +109,15 @@ function monoque_custom_settings()
     add_settings_field( 'sidebar-flickr', 'Flickr Handler', 'monoque_sidebar_flickr', 'sg_monoque', 'monoque-sidebar-options' );
     add_settings_field( 'sidebar-snapchat', 'Snapchat Handler', 'monoque_sidebar_snapchat', 'sg_monoque', 'monoque-sidebar-options' );
     add_settings_field( 'sidebar-whatsapp', 'WhatsApp Handler', 'monoque_sidebar_whatsapp', 'sg_monoque', 'monoque-sidebar-options' );
+
+    // Theme support options
+    register_setting( 'monoque-theme-support', 'post_formats', 'monoque_post_formats_callback' );
+    add_settings_section( 'monoque-theme-options', 'Theme Options', 'monoque_theme_options', 'sg_monoque_theme' );
+    add_settings_field( 'post-formats', 'Post Formats', 'monoque_post_formats', 'sg_monoque_theme', 'monoque-theme-options' );
 }
 
-
 // General page functions
-
+// Sidebar page functions
 /*function monoque_sidebar_profile()
 {
     $picture = esc_attr(get_option( 'profile_picture' ));
@@ -194,6 +214,29 @@ function monoque_sidebar_whatsapp()
     echo '<input type="text" name="whatsapp_handler" value="'.$whatsapp.'" placeholder="WhatsApp handler" />';
 }
 
+// Theme support page functions
+
+// post formats functions
+function monoque_post_formats_callback( $input )
+{
+    return $input;
+}
+
+function monoque_theme_options()
+{
+    echo 'Activate and Deactivate Specific Theme Support Options';
+}
+
+function monoque_post_formats()
+{
+    $formats = array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat');
+    $output = '';
+
+    foreach ($formats as $format) {
+        $output .= '<label><input type="checkbox" id="'.$format.'" name="'.$format.'" value="1"> '.$format.' </label><br> ';
+    }
+    echo $output;
+}
 
 // Custom CSS page functions
 function monoque_sidebar_options()
