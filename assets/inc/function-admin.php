@@ -111,9 +111,18 @@ function monoque_custom_settings()
     add_settings_field( 'sidebar-whatsapp', 'WhatsApp Handler', 'monoque_sidebar_whatsapp', 'sg_monoque', 'monoque-sidebar-options' );
 
     // Theme support options
-    register_setting( 'monoque-theme-support', 'post_formats', 'monoque_post_formats_callback' );
+    register_setting( 'monoque-theme-support', 'post_formats' );
+    //register_setting( 'monoque-theme-support', 'custom_logo' );
+    register_setting( 'monoque-theme-support', 'custom_header' );
+    register_setting( 'monoque-theme-support', 'custom_background' );
+
     add_settings_section( 'monoque-theme-options', 'Theme Options', 'monoque_theme_options', 'sg_monoque_theme' );
+    
     add_settings_field( 'post-formats', 'Post Formats', 'monoque_post_formats', 'sg_monoque_theme', 'monoque-theme-options' );
+    //add_settings_field( 'custom-logo', 'Custom Logo', 'monoque_custom_logo', 'sg_monoque_theme', 'monoque-theme-options' );
+    add_settings_field( 'custom-header', 'Custom Header', 'monoque_custom_header', 'sg_monoque_theme', 'monoque-theme-options' );
+    add_settings_field( 'custom-background', 'Custom Background', 'monoque_custom_background', 'sg_monoque_theme', 'monoque-theme-options' );
+
 }
 
 // General page functions
@@ -217,11 +226,6 @@ function monoque_sidebar_whatsapp()
 // Theme support page functions
 
 // post formats functions
-function monoque_post_formats_callback( $input )
-{
-    return $input;
-}
-
 function monoque_theme_options()
 {
     echo 'Activate and Deactivate Specific Theme Support Options';
@@ -238,6 +242,27 @@ function monoque_post_formats()
         $output .= '<label><input type="checkbox" id="'.$format.'" name="post_formats['.$format.']" value="1" '.$checked.' /> '.$format.' </label><br> ';
     }
     echo $output;
+}
+
+/*function monoque_custom_logo()
+{
+    $options = get_option('custom_logo');
+    $checked = ($options[$format] == 1 ? 'checked' : '');
+    echo '<label><input type="checkbox" id="custom_logo" name="custom_logo" value="1" '.$checked.' /> Activate The Custom Logo </label>';
+}*/
+
+function monoque_custom_header()
+{
+    $options = get_option('custom_header');
+    $checked = ($options[$format] == 1 ? 'checked' : '');
+    echo '<label><input type="checkbox" id="custom_header" name="custom_header" value="1" '.$checked.' /> Activate The Custom Header </label>';
+}
+
+function monoque_custom_background()
+{
+    $options = get_option('custom_background');
+    $checked = ($options[$format] == 1 ? 'checked' : '');
+    echo '<label><input type="checkbox" id="custom_background" name="custom_background" value="1" '.$checked.' /> Activate The Custom Background </label>';
 }
 
 // Custom CSS page functions
