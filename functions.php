@@ -2,6 +2,7 @@
 
 require get_template_directory() . '/assets/inc/function-admin.php';
 require get_template_directory() . '/assets/inc/enqueue.php';
+require get_template_directory() . '/assets/inc/theme-support.php';
 
 /*function mq_script_enqueue()
 {
