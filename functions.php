@@ -3,6 +3,7 @@
 require get_template_directory() . '/assets/inc/function-admin.php';
 require get_template_directory() . '/assets/inc/enqueue.php';
 require get_template_directory() . '/assets/inc/theme-support.php';
+require get_template_directory() . '/assets/inc/custom-post-type.php';
 
 /*function mq_script_enqueue()
 {

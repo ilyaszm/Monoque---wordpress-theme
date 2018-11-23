@@ -43,6 +43,15 @@ function monoque_add_admin_page()
 
     add_submenu_page(
         'sg_monoque',
+        'Monoque Contact Form',
+        'Contact Form',
+        'manage_options',
+        'sg_monoque_contact',
+        'monoque_contact_form_page'
+    );
+
+    add_submenu_page(
+        'sg_monoque',
         'Monoque CSS Options',
         'Custom CSS',
         'manage_options',
@@ -56,22 +65,29 @@ add_action( 'admin_menu', 'monoque_add_admin_page' );
 // Activate custom settings
 add_action( 'admin_init', 'monoque_custom_settings' );
 
+// Template Submenu functions
 // General page
 function monoque_theme_create_page()
 {
     require_once get_template_directory().'/assets/inc/templates/monoque-admin.php';
 }
 
+// Theme Support page
+function monoque_theme_support_page()
+{
+    require_once get_template_directory().'/assets/inc/templates/monoque-theme-support.php';
+}
+
+// Contact Form page
+function monoque_contact_form_page()
+{
+    require_once get_template_directory().'/assets/inc/templates/monoque-contact-form.php';
+}
+
 // Custom CSS page
 function monoque_theme_settings_page()
 {
     echo '<h1>Monoque Custom CSS</h1>';
-}
-
-// Template submenu functions
-function monoque_theme_support_page()
-{
-    require_once get_template_directory().'/assets/inc/templates/monoque-theme-support.php';
 }
 
 function monoque_custom_settings()
@@ -122,6 +138,11 @@ function monoque_custom_settings()
     //add_settings_field( 'custom-logo', 'Custom Logo', 'monoque_custom_logo', 'sg_monoque_theme', 'monoque-theme-options' );
     add_settings_field( 'custom-header', 'Custom Header', 'monoque_custom_header', 'sg_monoque_theme', 'monoque-theme-options' );
     add_settings_field( 'custom-background', 'Custom Background', 'monoque_custom_background', 'sg_monoque_theme', 'monoque-theme-options' );
+
+    //Contact Form Options
+    register_setting( 'monoque-contact-options', 'activate_contact' );
+    add_settings_section( 'monoque-contact-section', 'Contact Form', 'monoque_contact_section', 'sg_monoque_contact' );
+    add_settings_field( 'activate-form', 'Activate Contact Form', 'monoque_activate_contact', 'sg_monoque_contact', 'monoque-contact-section' );
 
 }
 
@@ -263,6 +284,20 @@ function monoque_custom_background()
     $options = get_option('custom_background');
     $checked = ($options[$format] == 1 ? 'checked' : '');
     echo '<label><input type="checkbox" id="custom_background" name="custom_background" value="1" '.$checked.' /> Activate The Custom Background </label>';
+}
+
+// Contact Form page functions
+
+function monoque_contact_section()
+{
+    echo 'Activate and Deactivate The Built-in Contact Form';
+}
+
+function monoque_activate_contact()
+{
+    $options = get_option('activate_contact');
+    $checked = ($options[$format] == 1 ? 'checked' : '');
+    echo '<input type="checkbox" id="activate_contact" name="activate_contact" value="1" '.$checked.' />';
 }
 
 // Custom CSS page functions
